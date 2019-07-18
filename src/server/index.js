@@ -18,12 +18,12 @@ app.use(cors());
 app.use(logger('dev'));
 app.use(helmet());
 
-// Handle invalid request
-app.all('*', (req, res) => res.status(404).json({
-  success: false,
-  message: 'Route does not exist...',
-  body: [],
-}));
+app.get('/', (req, res) => res.status(OK).json(
+  createSuccess({
+    message: 'Welcome to home route...',
+    data: [],
+  }),
+));
 
 // Handle invalid request
 app.all('*', (req, res) => res.status(404).json({
