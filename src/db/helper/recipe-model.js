@@ -19,6 +19,12 @@ export default ({ modelName = '', tableName = '', knex = {} }) => {
     return query;
   }
 
+  function getById(recipeID) {
+    return knex(tableName)
+      .where({ recipeID })
+      .first();
+  }
+
   function getShoppingList(recipeID) {
     return knex
       .select('recipes.name, ingredient_name, ingredient_quantity')
@@ -43,5 +49,6 @@ export default ({ modelName = '', tableName = '', knex = {} }) => {
     getShoppingList,
     getAll,
     getInstructions,
+    getById,
   };
 };
