@@ -91,9 +91,6 @@ const genericError = (err, req, res, next) => res.status(GENERIC_ERROR).json({
   errors: [err],
 });
 
-/**
- * Package all error handlers as object
- */
 export default {
   badRequest,
   notFound,
