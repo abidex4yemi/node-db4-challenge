@@ -1,4 +1,5 @@
 /* eslint-disable import/no-dynamic-require */
+/* eslint-disable no-param-reassign */
 /**
  * Module dependencies
  */
@@ -14,11 +15,9 @@ import knex from '../../config/database';
  */
 const getModelFiles = (directory) => {
   const modelFiles = fs.readdirSync(directory).filter((file) => {
-    if (!file.indexOf('.') !== 0 && !file !== 'index.js') {
-      return [];
+    if (file.indexOf('.') !== 0 && file !== 'index.js') {
+      return path.join(directory, file);
     }
-
-    return path.join(directory, file);
   });
 
   return modelFiles;
@@ -34,7 +33,6 @@ const models = modelFiles.reduce((modelsObj, filename) => {
   const model = modelFile(knex);
 
   if (model) {
-    // eslint-disable-next-line no-param-reassign
     modelsObj[model.modelName] = model;
   }
 

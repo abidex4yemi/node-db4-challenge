@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/named
-import { Recipes } from '../../model';
+import { Recipe } from '../../model';
 import { OK, createSuccess } from '../../util';
 
 /**
@@ -9,13 +9,13 @@ import { OK, createSuccess } from '../../util';
  * @param {object} res
  * @param {object} next
  */
-export default async function getRecipes(req, res, next) {
+const getRecipes = async (req, res, next) => {
   try {
     const { limit } = req.query;
     const { sortBy } = req.query;
     const { sortDir } = req.query;
 
-    const recipe = await Recipes.getAll({ limit, sortBy, sortDir });
+    const recipe = await Recipe.getAll({ limit, sortBy, sortDir });
 
     return res.status(OK).json(
       createSuccess({
@@ -25,4 +25,6 @@ export default async function getRecipes(req, res, next) {
   } catch (error) {
     return next(error);
   }
-}
+};
+
+export default getRecipes;

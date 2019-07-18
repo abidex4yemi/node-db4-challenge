@@ -6,6 +6,7 @@ import logger from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import errorHandler from './middleware/errorHandler';
+import recipesRouter from './routes/recipesRouter';
 import { OK, createSuccess } from './util';
 
 const app = express();
@@ -24,6 +25,8 @@ app.get('/', (req, res) => res.status(OK).json(
     data: [],
   }),
 ));
+
+app.use('/api/v1', [recipesRouter]);
 
 // Handle invalid request
 app.all('*', (req, res) => res.status(404).json({
