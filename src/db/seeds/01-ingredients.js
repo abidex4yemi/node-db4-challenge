@@ -2,9 +2,9 @@
 /* eslint-disable func-names */
 exports.seed = function (knex, Promise) {
   // Deletes ALL existing entries
-  return knex('table_name')
+  return knex('ingredients')
     .truncate()
-    .then(() => knex('table_name').insert([
+    .then(() => knex('ingredients').insert([
       { ingredient_name: 'package linguine pasta' },
       { ingredient_name: 'tablespoon olive oil' },
       { ingredient_name: 'cloves garlic, minced' },
