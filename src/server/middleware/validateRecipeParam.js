@@ -10,7 +10,7 @@ import { NOT_FOUND, createError } from '../util';
  * @param {*} next
  * @param {*} recipeID
  */
-export default async function (req, res, next, recipeID) {
+const validateRecipeParam = async (req, res, next, recipeID) => {
   try {
     const recipe = await Recipe.getById(recipeID);
 
@@ -29,4 +29,6 @@ export default async function (req, res, next, recipeID) {
   } catch (error) {
     return next(error);
   }
-}
+};
+
+export default validateRecipeParam;
