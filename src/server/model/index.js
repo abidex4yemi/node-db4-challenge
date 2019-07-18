@@ -1,3 +1,4 @@
+/* eslint-disable import/no-dynamic-require */
 /**
  * Module dependencies
  */
@@ -7,33 +8,37 @@ import knex from '../../config/database';
 
 /**
  *  Get all model file
- * 
+ *
  * @param {String} directory
  * @returns {Array} modelFiles
  */
-const getModelFiles = directory => {
-	const modelFiles = fs.readdirSync(directory).filter(file => {
-		if (file.indexOf('.') !== 0 && file !== 'index.js') {
-			return path.join(directory, file);
-		}
-	});
+const getModelFiles = (directory) => {
+  const modelFiles = fs.readdirSync(directory).filter((file) => {
+    if (!file.indexOf('.') !== 0 && !file !== 'index.js') {
+      return [];
+    }
 
-	return modelFiles;
+    return path.join(directory, file);
+  });
+
+  return modelFiles;
 };
 
 // Get all model file based on this current directory
 const modelFiles = getModelFiles(__dirname);
 
 const models = modelFiles.reduce((modelsObj, filename) => {
-	const modelFile = require(`./${filename}`);
+  // eslint-disable-next-line global-require
+  const modelFile = require(`./${filename}`);
 
-	const model = modelFile(knex);
+  const model = modelFile(knex);
 
-	if (model) {
-		modelsObj[model.modelName] = model;
-	}
+  if (model) {
+    // eslint-disable-next-line no-param-reassign
+    modelsObj[model.modelName] = model;
+  }
 
-	return modelsObj;
+  return modelsObj;
 }, {});
 
 module.exports = models;
